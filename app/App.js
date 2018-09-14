@@ -1,54 +1,51 @@
-import React, { Component } from 'react';
-import Item from './Item';
+import React, {Component} from "react";
+import { HashRouter as Router, Route, Link, Switch} from "react-router-dom";
 
-class Carrousel extends Component{
+import Menu from './components/Menu';
+import Carrousel from './components/Carrousel';
+import Video from './components/Video';
+import History from './components/History';
+import Login from './components/Login';
+import Register from './components/Register';
+import Doubts from './components/Doubts';
 
+class App extends Component{
     constructor() {
         super();
         this.state = {
-            results: [],
-            errored: false
+            url: 'http://localhost:3000',
+            userName: ''
         };
-    }
-    componentDidMount(){
-        fetch('http://localhost:3000/api/content')
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                this.setState({results: data.entries});
-            });
-    }
-    onItemClick(event) {
-        console.log(event.target.id);
-        if (event.target.id === 'right') {
-            slide(0);
-        }
-        else{
-            slide(1);
-        } 
     }
     render(){
         return (
-            <div className="total-carrousel">
-                <button id="right" onClick={this.onItemClick} className="focusable"> {'<'} </button>
-                <div className="carrousel">
-                    <ul className="items">
-                        { this.state.results.map(items =>{
-                            return(
-                                <li className="item focusable" key={items.id}>
-                                    <Item item={items}/>
-                                </li>
-                            );
-                        })
-                    }
-                        
-                    </ul>
+            <Router>
+                <div>
+                    <Menu url={this.state.url} userName = {this.state.userName}/>
+                    <Switch>
+                        <Route exact path='/' render={(props) => (
+                            <Carrousel {...props} url={this.state.url}/>
+                        )}/>
+                        <Route path="/video/:video" render={(props) => (
+                            <Video {...props} url={this.state.url}/>
+                        )}/>
+                        <Route path='/login' render={(props) => (
+                            <Login {...props} url={this.state.url}/>
+                        )}/>
+                        <Route path='/history' render={(props) => (
+                            <History {...props} url={this.state.url}/>
+                        )}/>
+                        <Route path='/register' render={(props) => (
+                            <Register {...props} url={this.state.url}/>
+                        )}/>
+                        <Route path='/doubts' render={(props) => (
+                            <Doubts {...props} url={this.state.url}/>
+                        )}/>
+                    </Switch>
                 </div>
-                <button id="left" onClick={this.onItemClick} className="focusable"> > </button>
-                
-            </div>
+            </Router>
         )
     }
 }
 
-export default Carrousel;
+export default App;

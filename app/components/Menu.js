@@ -10,7 +10,10 @@ class Menu extends Component{
         };
     }
     componentDidMount(){
-        fetch('/api/session')
+        console.log(this.props.url);
+
+        var url = this.props.url + '/api/session';
+        fetch(url,{})
             .then(res => res.json())
             .then(data => {
                 console.log(data.user);

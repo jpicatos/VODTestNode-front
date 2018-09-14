@@ -15,7 +15,6 @@ class Login extends Component{
     handleChange(event) {
         const name = event.target.name;
         this.setState({[name]: event.target.value});
-        console.log(this.state);
         
     }
     handleSubmit(event) {
@@ -31,8 +30,8 @@ class Login extends Component{
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-
-        fetch('/api/login', {
+        var url = this.props.url + '/api/login';
+        fetch(url, {
             method: "POST",
             body: formBody,
             headers: {
@@ -43,7 +42,8 @@ class Login extends Component{
               this.setState({errorMessage: 'User/Pass incorrect'});
             }
             else{
-                window.location.replace('/').reload();
+                sessionStorage.setItem('name', this.state.name);
+                console.log(response);
             }
             console.log( response.status);
           })
@@ -51,7 +51,6 @@ class Login extends Component{
     render(){
         return (
             <div id="login">
-                {console.log(this.state)}
                 <h1>Login</h1>
                 <p id='error'>{this.state.errorMessage}</p>
                 <form onSubmit={this.handleSubmit} id='loginForm'>

@@ -33,8 +33,8 @@ class Register extends Component{
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-
-        fetch('/api/register', {
+        var url = this.props.url + '/api/register';
+        fetch(url, {
             method: "POST",
             body: formBody,
             headers: {

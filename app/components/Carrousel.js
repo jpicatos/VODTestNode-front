@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+
 import Item from './Item';
 
 class Carrousel extends Component{
@@ -11,7 +13,8 @@ class Carrousel extends Component{
         };
     }
     componentDidMount(){
-        fetch('http://localhost:3000/api/content')
+        var url = this.props.url + '/api/content';
+        fetch(url,{        })
             .then(res => res.json())
             .then(data => {
                 console.log(data);

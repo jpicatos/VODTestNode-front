@@ -10,7 +10,7 @@ class Carrousel extends Component{
         };
     }
     componentDidMount () {
-        var link = '/api/video/' + this.props.match.params.video;
+        var link =  this.props.url + '/api/video/' + this.props.match.params.video;
 
         fetch(link)
             .then(res => res.json())

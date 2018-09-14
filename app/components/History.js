@@ -25,7 +25,7 @@ class Carrousel extends Component{
         return auxArray;
     }
     componentDidMount () {
-        var link = '/api/history/'
+        var link =this.props.url + '/api/history/';
 
         fetch(link)
             .then(res => res.json())
@@ -33,7 +33,8 @@ class Carrousel extends Component{
                 var auxResults = this.turnResults(results);
                 this.setState({results: auxResults, originalResults: auxResults});
             });
-        fetch('/api/session')
+        var url = this.props.url + '/api/session';
+        fetch(url)
             .then(res => res.json())
             .then(data => {
                 console.log(data.user);
@@ -53,11 +54,11 @@ class Carrousel extends Component{
     }
     onDeleteSingleClick(event) {
         console.log(event.target.id);
-        var url = '/api/history/'+ event.target.id;
+        var url = this.props.url +'/api/history/'+ event.target.id;
         fetch(url, {
             method: "DELETE"
           });
-        var link = '/api/history/'
+        var link = this.props.url +'/api/history/';
         fetch(link)
             .then(res => res.json())
             .then((results) => {

@@ -17,8 +17,5 @@ app.use(express.static('./public'));
 app.use(morgan('dev'));
 
 
-
-
 //listen to port
 app.listen(process.env.PORT || 8080);
-/*log.Fatal(http.ListenAndServe(":" + os.Getenv("PORT"), router));*/
